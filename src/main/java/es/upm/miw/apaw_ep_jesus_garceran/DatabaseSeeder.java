@@ -17,14 +17,6 @@ public class DatabaseSeeder {
         this.seederTeams();
     }
 
-    public void seederSponsors() {
-
-    }
-
-    public void seederLeague(){
-
-    }
-
     public void seederTeams() {
         this.teamDao.saveAll(Arrays.asList(
                     new Team("Real Madrid C.F.", "Madrid", "", 0),

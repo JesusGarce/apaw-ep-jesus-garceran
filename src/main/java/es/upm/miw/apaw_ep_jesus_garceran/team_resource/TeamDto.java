@@ -16,13 +16,6 @@ public class TeamDto {
         // empty for framework
     }
 
-    public TeamDto(String id, String name, String city, String badge) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-        this.badge = badge;
-    }
-
     public TeamDto(Team team){
         this.id = team.getId();
         this.name = team.getName();

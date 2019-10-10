@@ -43,6 +43,10 @@ public class Match {
         return finished;
     }
 
+    public void finishMatch() {
+        this.finished = true;
+    }
+
     @Override
     public String toString() {
         return "Match{" +
@@ -53,6 +57,5 @@ public class Match {
                 ", finished=" + finished +
                 '}';
     }
-
 
 }

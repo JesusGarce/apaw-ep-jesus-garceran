@@ -1,5 +1,7 @@
 package es.upm.miw.apaw_ep_jesus_garceran.team_data;
 
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +11,7 @@ public class Team {
     @Id
     private String id;
 
+    @UniqueElements
     private String name;
 
     private String city;

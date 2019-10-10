@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(TeamResource.TEAMS)
 public class TeamResource {
 
-    static final String TEAMS = "/teams";
+    public static final String TEAMS = "/teams";
 
     private TeamBusinessController teamBusinessController;
 

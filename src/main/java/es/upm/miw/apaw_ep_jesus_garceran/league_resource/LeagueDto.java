@@ -20,7 +20,6 @@ public class LeagueDto {
     public LeagueDto(League league) {
         this.id = league.getId();
         this.name = league.getName();
-
     }
 
     public String getId() {

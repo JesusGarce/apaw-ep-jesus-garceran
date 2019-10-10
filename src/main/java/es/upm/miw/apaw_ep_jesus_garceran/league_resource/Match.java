@@ -1,6 +1,6 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.Team;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 
 import java.time.LocalDateTime;
 

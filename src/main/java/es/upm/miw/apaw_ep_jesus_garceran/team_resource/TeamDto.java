@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_jesus_garceran.team_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.BadRequestException;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 
 public class TeamDto {
 

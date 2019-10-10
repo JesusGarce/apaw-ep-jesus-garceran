@@ -1,6 +1,6 @@
 package es.upm.miw.apaw_ep_jesus_garceran;
 
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.Team;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

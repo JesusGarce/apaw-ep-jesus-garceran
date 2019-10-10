@@ -16,7 +16,7 @@ public class League {
         this.id = id;
         this.name = name;
         this.table = table;
-        this.calendar = initializeCalendar();
+        initializeCalendar();
     }
 
     public League(String name) {
@@ -24,17 +24,16 @@ public class League {
         this.table = new LinkedList<>();
     }
 
-    private List<Match> initializeCalendar() {
-        List<Match> calendar = new LinkedList<>();
+    private void initializeCalendar() {
+        this.calendar = new LinkedList<>();
         for (Team teamLocal : table) {
+            int day = 10;
             for (Team teamAway : table) {
                 if (!teamLocal.equals(teamAway)) {
-                    int day = 10;
-                    calendar.add(new Match(LocalDateTime.of(2019, 10, day++, 21, 0), teamLocal, teamAway, false));
+                    this.calendar.add(new Match(LocalDateTime.of(2019, 10, day++, 21, 0), teamLocal, teamAway, false));
                 }
             }
         }
-        return calendar;
     }
 
     public String getId() {

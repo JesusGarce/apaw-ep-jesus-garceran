@@ -33,7 +33,7 @@ public class DatabaseSeeder {
         );
     }
 
-    private void seederLeague(){
+    private void seederLeague() {
         League league = this.leagueDao.save(new League("LaLiga Santander", new LinkedList<>()));
         league = this.leagueDao.findById(league.getId()).get();
         league.getTable().addAll(this.teamDao.findAll());

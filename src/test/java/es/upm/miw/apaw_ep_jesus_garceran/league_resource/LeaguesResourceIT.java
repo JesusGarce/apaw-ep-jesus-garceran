@@ -1,7 +1,6 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.ApiTestConfig;
-import es.upm.miw.apaw_ep_jesus_garceran.DatabaseSeeder;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamCreationDto;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
@@ -129,12 +128,12 @@ class LeaguesResourceIT {
 
 
     @Test
-    void changeResult(){
+    void changeResult() {
         createLeagueAndAddTwoTeams();
-        ResultDto resultDto = new ResultDto(2,1);
+        ResultDto resultDto = new ResultDto(2, 1);
 
         this.webTestClient
-                .patch().uri(LeagueResource.LEAGUES+LeagueResource.ID_IDLEAGUE+LeagueResource.MATCHES+LeagueResource.ID_IDMATCH, leagueDto.getId(), 0)
+                .patch().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.MATCHES + LeagueResource.ID_IDMATCH, leagueDto.getId(), 0)
                 .body(BodyInserters.fromObject(resultDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK);

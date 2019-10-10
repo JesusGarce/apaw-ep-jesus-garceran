@@ -35,7 +35,7 @@ public class LeagueResource {
     }
 
     @PatchMapping(value = ID_IDLEAGUE + MATCHES + ID_IDMATCH, consumes = "application/json")
-    public void changeResult(@PathVariable String idLeague, @PathVariable int idMatch, @RequestBody ResultDto resultDto){
+    public void changeResult(@PathVariable String idLeague, @PathVariable int idMatch, @RequestBody ResultDto resultDto) {
         //resultDto.validate();
         this.leagueBusinessController.changeResult(idLeague, idMatch, resultDto);
     }

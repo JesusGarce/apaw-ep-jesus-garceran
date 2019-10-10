@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.LinkedList;
-import java.util.List;
 
 @Controller
 public class LeagueBusinessController {
@@ -17,7 +16,8 @@ public class LeagueBusinessController {
 
     @Autowired
     public LeagueBusinessController(TeamDao teamDao, LeagueDao leagueDao) {
-        this.teamDao = teamDao; this.leagueDao = leagueDao;
+        this.teamDao = teamDao;
+        this.leagueDao = leagueDao;
     }
 
     public LeagueDto create(LeagueDto leagueDto) {
@@ -40,12 +40,12 @@ public class LeagueBusinessController {
         return this.leagueDao.findById(id).orElseThrow(() -> new NotFoundException("League id: " + id));
     }
 
-    public void changeResult(String idLeague, int idMatch, ResultDto resultDto){
+    public void changeResult(String idLeague, int idMatch, ResultDto resultDto) {
         League league = this.findLeagueByIdAssured(idLeague);
         Match match = league.getCalendar().remove(idMatch);
-        match.setResult(new Result(resultDto.getLocalScore(),resultDto.getAwayScore()));
+        match.setResult(new Result(resultDto.getLocalScore(), resultDto.getAwayScore()));
         match.finishMatch();
-        league.getCalendar().add(idMatch,match);
+        league.getCalendar().add(idMatch, match);
         this.leagueDao.save(league);
     }
 

@@ -12,7 +12,7 @@ public class League {
     private List<Team> table;
     private List<Match> calendar;
 
-    public League(){
+    public League() {
         // empty for framework
     }
 

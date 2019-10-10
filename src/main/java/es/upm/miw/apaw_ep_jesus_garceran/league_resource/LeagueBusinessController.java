@@ -2,7 +2,6 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -22,7 +21,7 @@ public class LeagueBusinessController {
         return new LeagueDto(league);
     }
 
-    public void addTeam(String id, String name, String city, String badge){
+    public void addTeam(String id, String name, String city, String badge) {
         League league = this.findLeagueByIdAssured(id);
         Team team = new Team(name, city, badge, 0);
         league.getTable().add(team);

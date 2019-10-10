@@ -25,8 +25,8 @@ public class LeagueResource {
         return this.leagueBusinessController.create(leagueDto);
     }
 
-    @PutMapping(value = ID_ID + TABLE,consumes = "application/json")
-    public void addTeam(@PathVariable String id, @RequestBody TeamDto teamDto){
+    @PutMapping(value = ID_ID + TABLE, consumes = "application/json")
+    public void addTeam(@PathVariable String id, @RequestBody TeamDto teamDto) {
         teamDto.validate();
         this.leagueBusinessController.addTeam(id, teamDto.getName(), teamDto.getCity(), teamDto.getBadge());
     }

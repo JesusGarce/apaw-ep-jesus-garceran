@@ -3,7 +3,6 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 import es.upm.miw.apaw_ep_jesus_garceran.ApiTestConfig;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamResource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +42,7 @@ class LeaguesResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
-    private void createLeague(){
+    private void createLeague() {
         leagueDto = this.webTestClient
                 .post().uri(LeagueResource.LEAGUES)
                 .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
@@ -53,9 +52,9 @@ class LeaguesResourceIT {
     }
 
     @Test
-    void testAddTeam(){
+    void testAddTeam() {
         createLeague();
-        TeamDto teamDto = new TeamDto(new Team("Equipo anónimo", "Ciudad anónima", "Escudo",0));
+        TeamDto teamDto = new TeamDto(new Team("Equipo anónimo", "Ciudad anónima", "Escudo", 0));
 
         this.webTestClient
                 .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
@@ -65,9 +64,9 @@ class LeaguesResourceIT {
     }
 
     @Test
-    void TestAddWrongTeamException(){
+    void TestAddWrongTeamException() {
         createLeague();
-        TeamDto teamDto = new TeamDto(new Team("", "Ciudad anónima", "Escudo",0));
+        TeamDto teamDto = new TeamDto(new Team("", "Ciudad anónima", "Escudo", 0));
 
         this.webTestClient
                 .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
@@ -77,9 +76,9 @@ class LeaguesResourceIT {
     }
 
     @Test
-    void TestAddWrongIdLeagueException(){
+    void TestAddWrongIdLeagueException() {
         createLeague();
-        TeamDto teamDto = new TeamDto(new Team("Equipo anónimo", "Ciudad anónima", "Escudo",0));
+        TeamDto teamDto = new TeamDto(new Team("Equipo anónimo", "Ciudad anónima", "Escudo", 0));
 
         this.webTestClient
                 .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, "malaId")

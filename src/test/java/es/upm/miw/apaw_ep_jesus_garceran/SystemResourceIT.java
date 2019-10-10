@@ -37,12 +37,12 @@ class SystemResourceIT {
                 .expectBody(VersionDto.class)
                 .returnResult().getResponseBody();
         assertNotNull(versionDto.getVersion());
-        assertEquals("VersionDto{",versionDto.toString().substring(0,11));
+        assertEquals("VersionDto{", versionDto.toString().substring(0, 11));
 
     }
 
     @Test
-    void testException(){
+    void testException() {
         this.webTestClient.post().uri(SystemResource.SYSTEM + SystemResource.VERSION_BADGE)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);

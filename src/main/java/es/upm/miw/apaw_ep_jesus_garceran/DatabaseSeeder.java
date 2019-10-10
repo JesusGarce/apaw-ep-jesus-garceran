@@ -19,12 +19,12 @@ public class DatabaseSeeder {
 
     public void seederTeams() {
         this.teamDao.saveAll(Arrays.asList(
-                    new Team("Real Madrid C.F.", "Madrid", "", 0),
-                    new Team("F.C. Barcelona", "Barcelona", "", 0),
-                    new Team("Sevilla F.C.", "Sevilla", "", 0),
-                    new Team("Valencia C.F.", "Valencia", "", 0),
-                    new Team("Real Murcia F.C.", "Murcia", "",0)
+                new Team("Real Madrid C.F.", "Madrid", "https://www.stickpng.com/assets/images/584a9b47b080d7616d298778.png", 0),
+                new Team("F.C. Barcelona", "Barcelona", "https://www.stickpng.com/assets/images/584a9b3bb080d7616d298777.png", 0),
+                new Team("Sevilla F.C.", "Sevilla", "https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/Sevilla_FC_logo.svg/1200px-Sevilla_FC_logo.svg.png", 0),
+                new Team("Real Murcia F.C.", "Murcia", "https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Real_Murcia_CF_logo.svg/1200px-Real_Murcia_CF_logo.svg.png", 0)
                 )
         );
+
     }
 }

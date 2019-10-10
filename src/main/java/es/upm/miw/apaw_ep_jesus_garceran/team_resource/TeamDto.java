@@ -16,7 +16,7 @@ public class TeamDto {
         // empty for framework
     }
 
-    public TeamDto(Team team){
+    public TeamDto(Team team) {
         this.id = team.getId();
         this.name = team.getName();
         this.city = team.getCity();

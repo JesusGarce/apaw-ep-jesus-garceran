@@ -7,22 +7,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestExceptions {
 
     @Test
-    void testBadRequestException(){
-        assertEquals("Bad", new BadRequestException("test").getMessage().substring(0,3));
+    void testBadRequestException() {
+        assertEquals("Bad", new BadRequestException("test").getMessage().substring(0, 3));
     }
 
     @Test
-    void testConflictException(){
-        assertEquals("Conflict", new ConflictException("test").getMessage().substring(0,8));
+    void testConflictException() {
+        assertEquals("Conflict", new ConflictException("test").getMessage().substring(0, 8));
     }
 
     @Test
-    void testNotFoundException(){
-        assertEquals("Not", new NotFoundException("test").getMessage().substring(0,3));
+    void testNotFoundException() {
+        assertEquals("Not", new NotFoundException("test").getMessage().substring(0, 3));
     }
 
     @Test
-    void testErrorMessage(){
-        assertEquals("ErrorMessage",new ErrorMessage(new BadRequestException("test"),"test").toString().substring(0,12));
+    void testErrorMessage() {
+        assertEquals("ErrorMessage", new ErrorMessage(new BadRequestException("test"), "test").toString().substring(0, 12));
     }
 }

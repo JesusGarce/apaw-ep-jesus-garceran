@@ -1,7 +1,5 @@
 package es.upm.miw.apaw_ep_jesus_garceran.team_resource;
 
-import es.upm.miw.apaw_ep_jesus_garceran.exceptions.BadRequestException;
-
 public class TeamCreationDto {
 
     private String name;
@@ -29,4 +27,12 @@ public class TeamCreationDto {
     }
 
 
+    @Override
+    public String toString() {
+        return "TeamCreationDto{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", badge='" + badge + '\'' +
+                '}';
+    }
 }

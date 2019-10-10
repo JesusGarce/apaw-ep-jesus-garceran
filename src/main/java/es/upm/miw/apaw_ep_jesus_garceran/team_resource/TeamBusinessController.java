@@ -9,10 +9,12 @@ public class TeamBusinessController {
     private TeamDao teamDao;
 
     @Autowired
-    public TeamBusinessController(TeamDao teamDao) {this.teamDao = teamDao;}
+    public TeamBusinessController(TeamDao teamDao) {
+        this.teamDao = teamDao;
+    }
 
-    public TeamDto create(TeamDto teamDto){
-        Team team = new Team(teamDto.getName(),teamDto.getCity(),teamDto.getBadge(),0);
+    public TeamDto create(TeamDto teamDto) {
+        Team team = new Team(teamDto.getName(), teamDto.getCity(), teamDto.getBadge(), 0);
         this.teamDao.save(team);
         return new TeamDto(team);
     }

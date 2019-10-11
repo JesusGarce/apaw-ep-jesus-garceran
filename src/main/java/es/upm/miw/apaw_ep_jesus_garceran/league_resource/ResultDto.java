@@ -8,7 +8,7 @@ public class ResultDto {
         //empty for framework
     }
 
-    public ResultDto (Result result){
+    public ResultDto(Result result) {
         this.localScore = result.getLocalScore();
         this.awayScore = result.getAwayScore();
     }

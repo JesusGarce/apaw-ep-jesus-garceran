@@ -19,6 +19,8 @@ class LeaguesResourceIT {
 
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private LeagueDao leagueDao;
     private LeagueDto leagueDto;
     private TeamDto localTeam;
     private TeamDto awayTeam;
@@ -65,6 +67,7 @@ class LeaguesResourceIT {
                 .body(BodyInserters.fromObject(teamDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK);
+
     }
 
     @Test

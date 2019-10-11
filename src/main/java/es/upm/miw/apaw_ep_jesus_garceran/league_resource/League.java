@@ -16,7 +16,6 @@ public class League {
     private List<Team> table;
     private List<Match> calendar;
 
-
     public League(String name, List<Team> table) {
         this.name = name;
         this.table = table;

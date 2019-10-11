@@ -35,7 +35,8 @@ public class DatabaseSeeder {
 
     private void seederLeague() {
         League league = this.leagueDao.save(new League("LaLiga Santander", new LinkedList<>()));
-        league = this.leagueDao.findById(league.getId()).get();
+        if (this.leagueDao.findById(league.getId()).isPresent())
+            league = this.leagueDao.findById(league.getId()).get();
         league.getTable().addAll(this.teamDao.findAll());
         league.initializeCalendar();
         this.leagueDao.save(league);

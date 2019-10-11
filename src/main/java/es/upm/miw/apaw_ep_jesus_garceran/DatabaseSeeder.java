@@ -3,6 +3,8 @@ package es.upm.miw.apaw_ep_jesus_garceran;
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_jesus_garceran.league_resource.League;
 import es.upm.miw.apaw_ep_jesus_garceran.league_resource.LeagueDao;
+import es.upm.miw.apaw_ep_jesus_garceran.sponsor_resource.Sponsor;
+import es.upm.miw.apaw_ep_jesus_garceran.sponsor_resource.SponsorDao;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,16 @@ import java.util.LinkedList;
 public class DatabaseSeeder {
     private TeamDao teamDao;
     private LeagueDao leagueDao;
+    private SponsorDao sponsorDao;
 
     @Autowired
-    public DatabaseSeeder(TeamDao teamDao, LeagueDao leagueDao) {
+    public DatabaseSeeder(TeamDao teamDao, LeagueDao leagueDao, SponsorDao sponsorDao) {
         this.teamDao = teamDao;
         this.leagueDao = leagueDao;
+        this.sponsorDao = sponsorDao;
         this.seederTeams();
         this.seederLeague();
+        this.seederSponsor();
     }
 
     private void seederTeams() {
@@ -42,4 +47,11 @@ public class DatabaseSeeder {
         this.leagueDao.save(league);
     }
 
+    private void seederSponsor() {
+        this.sponsorDao.saveAll(Arrays.asList(
+                new Sponsor("Adidas", 3000000.00),
+                new Sponsor("Nike", 1232142.00),
+                new Sponsor("ElPozo", 12222222.00)
+        ));
+    }
 }

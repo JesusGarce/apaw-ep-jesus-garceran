@@ -18,7 +18,6 @@ public class Match {
         this.finished = finished;
     }
 
-
     public LocalDateTime getDate() {
         return date;
     }

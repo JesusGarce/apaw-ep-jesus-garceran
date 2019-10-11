@@ -60,4 +60,13 @@ class TeamResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testGetAllTeams() {
+        this.webTestClient
+                .get().uri(TeamResource.TEAMS)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectBodyList(TeamDto.class).returnResult().getResponseBody();
+    }
+
 }

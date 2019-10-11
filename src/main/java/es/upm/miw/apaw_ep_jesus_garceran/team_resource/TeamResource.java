@@ -1,10 +1,9 @@
 package es.upm.miw.apaw_ep_jesus_garceran.team_resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(TeamResource.TEAMS)
@@ -25,5 +24,9 @@ public class TeamResource {
         return this.teamBusinessController.create(teamDto);
     }
 
+    @GetMapping
+    public List<TeamDto> getAll() {
+        return this.teamBusinessController.getAll();
+    }
 
 }

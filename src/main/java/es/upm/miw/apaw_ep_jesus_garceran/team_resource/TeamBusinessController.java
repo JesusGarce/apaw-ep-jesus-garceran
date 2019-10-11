@@ -4,6 +4,9 @@ import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class TeamBusinessController {
 
@@ -20,4 +23,10 @@ public class TeamBusinessController {
         return new TeamDto(team);
     }
 
+    public List<TeamDto> getAll() {
+        return this.teamDao.findAll()
+                .stream()
+                .map(TeamDto::new)
+                .collect(Collectors.toList());
+    }
 }

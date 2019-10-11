@@ -4,7 +4,7 @@ public class MatchDto {
     private String date;
     private String local;
     private String away;
-    private Result result;
+    private ResultDto result;
     private boolean finished;
 
     public MatchDto() {
@@ -15,7 +15,8 @@ public class MatchDto {
         this.date = match.getDate().toString();
         this.local = match.getLocal().getName();
         this.away = match.getAway().getName();
-        this.result = match.getResult();
+        if (match.getResult() != null)
+            this.result = new ResultDto(match.getResult());
         this.finished = match.isFinished();
     }
 
@@ -31,7 +32,7 @@ public class MatchDto {
         return away;
     }
 
-    public Result getResult() {
+    public ResultDto getResult() {
         return result;
     }
 

@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
+import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -47,35 +48,47 @@ public class LeagueBusinessController {
         League league = this.findLeagueByIdAssured(idLeague);
         Match match = league.getCalendar().remove(idMatch);
         match.setResult(new Result(resultDto.getLocalScore(), resultDto.getAwayScore()));
-        match = finishMatch(match);
+        match = finishMatch(league, match);
         league.getCalendar().add(idMatch, match);
         this.leagueDao.save(league);
     }
 
-    private Match finishMatch(Match match){
-        if (match.getResult().getAwayScore() > match.getResult().getLocalScore()) {
-            match.getAway().addPoints(3);
-            this.teamDao.save(match.getAway());
-        }
-        else if (match.getResult().getLocalScore() > match.getResult().getAwayScore()) {
-            match.getLocal().addPoints(3);
-            this.teamDao.save(match.getLocal());
-        }
-        else {
-            match.getLocal().addPoints(1);
-            match.getAway().addPoints(1);
-            this.teamDao.save(match.getLocal());
-            this.teamDao.save(match.getAway());
-        }
+    private Match finishMatch(League league, Match match) {
         match.finishMatch();
+        if (match.getResult().getAwayScore() > match.getResult().getLocalScore()) {
+            addPoints(league, match.getAway(), 3);
+            this.teamDao.save(match.getAway());
+        } else if (match.getResult().getLocalScore() > match.getResult().getAwayScore()) {
+            addPoints(league, match.getLocal(), 3);
+            this.teamDao.save(match.getLocal());
+        } else {
+            addPoints(league, match.getAway(), 1);
+            addPoints(league, match.getLocal(), 1);
+            this.teamDao.save(match.getLocal());
+            this.teamDao.save(match.getAway());
+        }
         return match;
+    }
+
+    private void addPoints(League league, Team team, int points) {
+        league.getTable().stream()
+                .filter(object -> object.getName().equals(team.getName()))
+                .forEach(object -> object.addPoints(points));
     }
 
     public List<MatchDto> findMatchesByDate(String idLeague, LocalDateTime localDateTime) {
         League league = this.findLeagueByIdAssured(idLeague);
-        return league.getCalendar().stream()
+        List<MatchDto> list =  league.getCalendar().stream()
                 .filter(match -> match.getDate().equals(localDateTime))
                 .map(MatchDto::new)
+                .collect(Collectors.toList());
+        return list;
+    }
+
+    public List<TeamDto> getTable(String id) {
+        League league = this.findLeagueByIdAssured(id);
+        return league.getTable().stream()
+                .map(TeamDto::new)
                 .collect(Collectors.toList());
     }
 }

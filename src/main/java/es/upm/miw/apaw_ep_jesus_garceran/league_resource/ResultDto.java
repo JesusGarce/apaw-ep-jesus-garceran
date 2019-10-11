@@ -8,6 +8,11 @@ public class ResultDto {
         //empty for framework
     }
 
+    public ResultDto (Result result){
+        this.localScore = result.getLocalScore();
+        this.awayScore = result.getAwayScore();
+    }
+
     public ResultDto(int localScore, int awayScore) {
         this.localScore = localScore;
         this.awayScore = awayScore;

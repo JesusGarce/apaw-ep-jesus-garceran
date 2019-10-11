@@ -43,6 +43,10 @@ public class Team {
         return badge;
     }
 
+    public void addPoints(int points){
+        this.points = this.points+points;
+    }
+
     @Override
     public String toString() {
         return "Team{" +

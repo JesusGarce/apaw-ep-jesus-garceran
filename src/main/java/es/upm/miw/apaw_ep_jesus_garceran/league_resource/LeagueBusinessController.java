@@ -47,9 +47,28 @@ public class LeagueBusinessController {
         League league = this.findLeagueByIdAssured(idLeague);
         Match match = league.getCalendar().remove(idMatch);
         match.setResult(new Result(resultDto.getLocalScore(), resultDto.getAwayScore()));
-        match.finishMatch();
+        match = finishMatch(match);
         league.getCalendar().add(idMatch, match);
         this.leagueDao.save(league);
+    }
+
+    private Match finishMatch(Match match){
+        if (match.getResult().getAwayScore() > match.getResult().getLocalScore()) {
+            match.getAway().addPoints(3);
+            this.teamDao.save(match.getAway());
+        }
+        else if (match.getResult().getLocalScore() > match.getResult().getAwayScore()) {
+            match.getLocal().addPoints(3);
+            this.teamDao.save(match.getLocal());
+        }
+        else {
+            match.getLocal().addPoints(1);
+            match.getAway().addPoints(1);
+            this.teamDao.save(match.getLocal());
+            this.teamDao.save(match.getAway());
+        }
+        match.finishMatch();
+        return match;
     }
 
     public List<MatchDto> findMatchesByDate(String idLeague, LocalDateTime localDateTime) {

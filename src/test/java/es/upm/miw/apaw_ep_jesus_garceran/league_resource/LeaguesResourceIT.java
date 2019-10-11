@@ -93,38 +93,46 @@ class LeaguesResourceIT {
 
     private void createLeagueAndAddTwoTeams(String localName, String awayName) {
 
-            leagueDto = this.webTestClient
-                    .post().uri(LeagueResource.LEAGUES)
-                    .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
-                    .exchange()
-                    .expectStatus().isOk()
-                    .expectBody(LeagueDto.class).returnResult().getResponseBody();
+        leagueDto = this.webTestClient
+                .post().uri(LeagueResource.LEAGUES)
+                .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(LeagueDto.class).returnResult().getResponseBody();
 
-            localTeam = this.webTestClient
-                    .post().uri(TeamResource.TEAMS)
-                    .body(BodyInserters.fromObject(new TeamCreationDto(localName, "Murcia", "Escudo")))
-                    .exchange()
-                    .expectStatus().isOk()
-                    .expectBody(TeamDto.class).returnResult().getResponseBody();
+        localTeam = this.webTestClient
+                .post().uri(TeamResource.TEAMS)
+                .body(BodyInserters.fromObject(new TeamCreationDto(localName, "Murcia", "Escudo")))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(TeamDto.class).returnResult().getResponseBody();
 
-            awayTeam = this.webTestClient
-                    .post().uri(TeamResource.TEAMS)
-                    .body(BodyInserters.fromObject(new TeamCreationDto(awayName, "Cartagena", "Escudo")))
-                    .exchange()
-                    .expectStatus().isOk()
-                    .expectBody(TeamDto.class).returnResult().getResponseBody();
+        awayTeam = this.webTestClient
+                .post().uri(TeamResource.TEAMS)
+                .body(BodyInserters.fromObject(new TeamCreationDto(awayName, "Cartagena", "Escudo")))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(TeamDto.class).returnResult().getResponseBody();
 
-            this.webTestClient
-                    .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
-                    .body(BodyInserters.fromObject(localTeam))
-                    .exchange()
-                    .expectStatus().isEqualTo(HttpStatus.OK);
+        this.webTestClient
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .body(BodyInserters.fromObject(localTeam))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK);
 
-            this.webTestClient
-                    .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
-                    .body(BodyInserters.fromObject(awayTeam))
-                    .exchange()
-                    .expectStatus().isEqualTo(HttpStatus.OK);
+        this.webTestClient
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .body(BodyInserters.fromObject(awayTeam))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK);
+
+        ResultDto resultDto = new ResultDto(2, 1);
+
+        this.webTestClient
+                .patch().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.MATCHES + LeagueResource.ID_IDMATCH, leagueDto.getId(), 0)
+                .body(BodyInserters.fromObject(resultDto))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK);
     }
 
 
@@ -164,6 +172,16 @@ class LeaguesResourceIT {
                         .build(leagueDto.getId()))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void getTable() {
+        createLeagueAndAddTwoTeams("ElPozo Murcia", "Inter Movistar");
+        this.webTestClient
+                .get().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectBodyList(TeamDto.class).returnResult().getResponseBody();
     }
 
 }

@@ -6,12 +6,10 @@ import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 public class TeamDto {
 
     private String id;
-
     private String name;
-
     private String city;
-
     private String badge;
+    private int points;
 
     public TeamDto() {
         // empty for framework
@@ -22,15 +20,12 @@ public class TeamDto {
         this.name = team.getName();
         this.city = team.getCity();
         this.badge = team.getBadge();
+        this.points = team.getPoints();
     }
 
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -45,16 +40,12 @@ public class TeamDto {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getBadge() {
         return badge;
     }
 
-    public void setBadge(String badge) {
-        this.badge = badge;
+    public int getPoints() {
+        return points;
     }
 
     public void validate() {
@@ -70,6 +61,7 @@ public class TeamDto {
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
                 ", badge='" + badge + '\'' +
+                ", points='" + points + '\'' +
                 '}';
     }
 }

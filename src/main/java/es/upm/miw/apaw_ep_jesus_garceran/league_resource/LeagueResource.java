@@ -55,4 +55,9 @@ public class LeagueResource {
         return this.leagueBusinessController.findMatchesByDate(idLeague, localDateTime);
     }
 
+    @GetMapping(value = ID_ID + TABLE)
+    public List<TeamDto> getTable(@PathVariable String id) {
+        return this.leagueBusinessController.getTable(id);
+    }
+
 }

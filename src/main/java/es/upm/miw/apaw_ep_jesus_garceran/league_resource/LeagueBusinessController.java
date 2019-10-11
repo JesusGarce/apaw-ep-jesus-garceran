@@ -27,7 +27,7 @@ public class LeagueBusinessController {
     }
 
 
-    public void addTeam(String id, String name, String city, String badge) {
+    public void addTeam(String id, String name) {
         League league = this.findLeagueByIdAssured(id);
         Team team = this.teamDao.findByName(name);
         league.getTable().add(team);

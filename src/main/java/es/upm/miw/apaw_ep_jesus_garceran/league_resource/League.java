@@ -18,7 +18,6 @@ public class League {
 
 
     public League(String name, List<Team> table) {
-        this.id = id;
         this.name = name;
         this.table = table;
     }

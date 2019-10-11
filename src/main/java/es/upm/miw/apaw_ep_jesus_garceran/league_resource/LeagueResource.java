@@ -31,12 +31,11 @@ public class LeagueResource {
     @PutMapping(value = ID_ID + TABLE, consumes = "application/json")
     public void addTeam(@PathVariable String id, @RequestBody TeamDto teamDto) {
         teamDto.validate();
-        this.leagueBusinessController.addTeam(id, teamDto.getName(), teamDto.getCity(), teamDto.getBadge());
+        this.leagueBusinessController.addTeam(id, teamDto.getName());
     }
 
     @PatchMapping(value = ID_IDLEAGUE + MATCHES + ID_IDMATCH, consumes = "application/json")
     public void changeResult(@PathVariable String idLeague, @PathVariable int idMatch, @RequestBody ResultDto resultDto) {
-        //resultDto.validate();
         this.leagueBusinessController.changeResult(idLeague, idMatch, resultDto);
     }
 

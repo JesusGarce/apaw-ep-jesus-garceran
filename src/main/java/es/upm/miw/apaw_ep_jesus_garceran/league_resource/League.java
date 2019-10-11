@@ -1,35 +1,29 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+@Document
 public class League {
+    @Id
     private String id;
     private String name;
     private List<Team> table;
     private List<Match> calendar;
 
-    public League() {
-        // empty for framework
-    }
 
-    public League(String id, String name, List<Team> table) {
+    public League(String name, List<Team> table) {
         this.id = id;
         this.name = name;
         this.table = table;
-        initializeCalendar();
     }
 
-    public League(String id, String name) {
-        this.id = id;
-        this.name = name;
-        this.table = new LinkedList<>();
-    }
-
-    private void initializeCalendar() {
+    public void initializeCalendar() {
         this.calendar = new LinkedList<>();
         for (Team teamLocal : table) {
             int day = 10;

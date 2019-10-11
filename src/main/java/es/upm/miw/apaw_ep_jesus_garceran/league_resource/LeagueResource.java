@@ -11,6 +11,9 @@ public class LeagueResource {
     static final String LEAGUES = "/leagues";
     static final String TABLE = "/table";
     static final String ID_ID = "/{id}";
+    static final String MATCHES = "/matches";
+    static final String ID_IDLEAGUE = "/{idLeague}";
+    static final String ID_IDMATCH = "/{idMatch}";
 
     private LeagueBusinessController leagueBusinessController;
 
@@ -29,6 +32,12 @@ public class LeagueResource {
     public void addTeam(@PathVariable String id, @RequestBody TeamDto teamDto) {
         teamDto.validate();
         this.leagueBusinessController.addTeam(id, teamDto.getName(), teamDto.getCity(), teamDto.getBadge());
+    }
+
+    @PatchMapping(value = ID_IDLEAGUE + MATCHES + ID_IDMATCH, consumes = "application/json")
+    public void changeResult(@PathVariable String idLeague, @PathVariable int idMatch, @RequestBody ResultDto resultDto) {
+        //resultDto.validate();
+        this.leagueBusinessController.changeResult(idLeague, idMatch, resultDto);
     }
 
 }

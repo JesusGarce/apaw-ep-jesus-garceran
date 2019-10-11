@@ -1,7 +1,6 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 public class MatchDto {
-
     private String date;
     private String local;
     private String away;

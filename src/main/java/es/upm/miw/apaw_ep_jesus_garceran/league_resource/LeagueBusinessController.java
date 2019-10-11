@@ -6,7 +6,10 @@ import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LeagueBusinessController {
@@ -49,4 +52,11 @@ public class LeagueBusinessController {
         this.leagueDao.save(league);
     }
 
+    public List<MatchDto> findMatchesByDate(String idLeague, LocalDateTime localDateTime) {
+        League league = this.findLeagueByIdAssured(idLeague);
+        return league.getCalendar().stream()
+                .filter(match -> match.getDate().equals(localDateTime))
+                .map(MatchDto::new)
+                .collect(Collectors.toList());
+    }
 }

@@ -1,5 +1,6 @@
 package es.upm.miw.apaw_ep_jesus_garceran;
 
+import es.upm.miw.apaw_ep_jesus_garceran.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_jesus_garceran.league_resource.League;
 import es.upm.miw.apaw_ep_jesus_garceran.league_resource.LeagueDao;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
@@ -35,8 +36,7 @@ public class DatabaseSeeder {
 
     private void seederLeague() {
         League league = this.leagueDao.save(new League("LaLiga Santander", new LinkedList<>()));
-        if (this.leagueDao.findById(league.getId()).isPresent())
-            league = this.leagueDao.findById(league.getId()).get();
+        league = this.leagueDao.findById(league.getId()).orElseThrow(() -> new NotFoundException("League error: " ));
         league.getTable().addAll(this.teamDao.findAll());
         league.initializeCalendar();
         this.leagueDao.save(league);

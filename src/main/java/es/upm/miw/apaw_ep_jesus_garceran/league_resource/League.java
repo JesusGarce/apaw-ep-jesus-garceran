@@ -41,7 +41,7 @@ public class League {
         }
     }
 
-    public void addTeam(Team team){
+    public void addTeam(Team team) {
         this.table.add(team);
         emitter.onNext(team);
         if (this.table.size() > 1)

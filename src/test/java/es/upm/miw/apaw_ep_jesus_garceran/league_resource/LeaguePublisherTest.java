@@ -10,8 +10,8 @@ public class LeaguePublisherTest {
 
     @Test
     void testPublisher() {
-        Team teamMadrid = new Team("Real Madrid CF","Madrid","escudo",0);
-        Team teamBarcelona = new Team("FC Barcelona","Barcelona","escudo",0);
+        Team teamMadrid = new Team("Real Madrid CF", "Madrid", "escudo", 0);
+        Team teamBarcelona = new Team("FC Barcelona", "Barcelona", "escudo", 0);
 
 
         League league = new League("Liga Española", new LinkedList<>());

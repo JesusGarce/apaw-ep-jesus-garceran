@@ -11,7 +11,8 @@ public class Match {
     private Result result;
     private boolean finished;
 
-    public Match(){ }
+    public Match() {
+    }
 
     public Match(LocalDateTime date, Team local, Team away, boolean finished) {
         this.date = date;
@@ -24,12 +25,24 @@ public class Match {
         return date;
     }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
     public Team getLocal() {
         return local;
     }
 
+    public void setLocal(Team local) {
+        this.local = local;
+    }
+
     public Team getAway() {
         return away;
+    }
+
+    public void setAway(Team away) {
+        this.away = away;
     }
 
     public Result getResult() {
@@ -44,24 +57,12 @@ public class Match {
         return finished;
     }
 
-    public void finishMatch() {
-        this.finished = true;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public void setLocal(Team local) {
-        this.local = local;
-    }
-
-    public void setAway(Team away) {
-        this.away = away;
-    }
-
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public void finishMatch() {
+        this.finished = true;
     }
 
     @Override
@@ -83,32 +84,34 @@ public class Match {
             this.match = new Match();
         }
 
-        public Builder date(LocalDateTime date){
+        public Builder date(LocalDateTime date) {
             match.setDate(date);
             return this;
         }
 
-        public Builder local(Team local){
+        public Builder local(Team local) {
             match.setLocal(local);
             return this;
         }
 
-        public Builder away(Team away){
+        public Builder away(Team away) {
             match.setAway(away);
             return this;
         }
 
-        public Builder result(Result result){
+        public Builder result(Result result) {
             match.setResult(result);
             return this;
         }
 
-        public Builder finished(boolean finished){
+        public Builder finished(boolean finished) {
             match.setFinished(finished);
             return this;
         }
 
-        public Match build() { return match; }
+        public Match build() {
+            return match;
+        }
 
     }
 

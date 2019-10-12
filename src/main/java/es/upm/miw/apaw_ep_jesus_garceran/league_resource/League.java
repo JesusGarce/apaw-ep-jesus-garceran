@@ -28,10 +28,10 @@ public class League {
             for (Team teamAway : table) {
                 if (!teamLocal.equals(teamAway)) {
                     this.calendar.add(new Match.Builder().date(LocalDateTime.of(2019, 10, day++, 21, 0))
-                                                         .local(teamLocal)
-                                                         .away(teamAway)
-                                                         .finished(false)
-                                                         .build());
+                            .local(teamLocal)
+                            .away(teamAway)
+                            .finished(false)
+                            .build());
                 }
             }
         }

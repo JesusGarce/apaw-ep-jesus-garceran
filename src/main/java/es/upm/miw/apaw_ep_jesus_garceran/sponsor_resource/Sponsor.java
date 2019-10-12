@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Sponsor {
+public class Sponsor implements SponsorInterface {
 
     @Id
     private String id;
@@ -39,5 +39,20 @@ public class Sponsor {
                 ", name='" + name + '\'' +
                 ", economicInput=" + economicInput +
                 '}';
+    }
+
+    @Override
+    public void add(Sponsor sponsor) {
+        // nothing to do
+    }
+
+    @Override
+    public void remove(Sponsor sponsor) {
+        // nothing to do
+    }
+
+    @Override
+    public double sumEconomicInput() {
+        return economicInput;
     }
 }

@@ -11,6 +11,8 @@ public class Match {
     private Result result;
     private boolean finished;
 
+    public Match(){ }
+
     public Match(LocalDateTime date, Team local, Team away, boolean finished) {
         this.date = date;
         this.local = local;
@@ -46,6 +48,22 @@ public class Match {
         this.finished = true;
     }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setLocal(Team local) {
+        this.local = local;
+    }
+
+    public void setAway(Team away) {
+        this.away = away;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
     @Override
     public String toString() {
         return "Match{" +
@@ -55,6 +73,43 @@ public class Match {
                 ", result=" + result +
                 ", finished=" + finished +
                 '}';
+    }
+
+
+    public static class Builder {
+        private Match match;
+
+        public Builder() {
+            this.match = new Match();
+        }
+
+        public Builder date(LocalDateTime date){
+            match.setDate(date);
+            return this;
+        }
+
+        public Builder local(Team local){
+            match.setLocal(local);
+            return this;
+        }
+
+        public Builder away(Team away){
+            match.setAway(away);
+            return this;
+        }
+
+        public Builder result(Result result){
+            match.setResult(result);
+            return this;
+        }
+
+        public Builder finished(boolean finished){
+            match.setFinished(finished);
+            return this;
+        }
+
+        public Match build() { return match; }
+
     }
 
 }

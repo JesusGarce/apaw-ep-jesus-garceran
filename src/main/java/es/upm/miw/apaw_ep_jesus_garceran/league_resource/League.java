@@ -3,6 +3,8 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import reactor.core.publisher.EmitterProcessor;
+import reactor.core.publisher.Flux;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -15,10 +17,12 @@ public class League {
     private String name;
     private List<Team> table;
     private List<Match> calendar;
+    private EmitterProcessor<Team> emitter;
 
     public League(String name, List<Team> table) {
         this.name = name;
         this.table = table;
+        this.emitter = EmitterProcessor.create();
     }
 
     public void initializeCalendar() {
@@ -35,6 +39,13 @@ public class League {
                 }
             }
         }
+    }
+
+    public void addTeam(Team team){
+        this.table.add(team);
+        emitter.onNext(team);
+        if (this.table.size() > 1)
+            initializeCalendar();
     }
 
     public String getId() {
@@ -55,6 +66,10 @@ public class League {
 
     public List<Match> getCalendar() {
         return calendar;
+    }
+
+    public Flux<Team> publisher() {
+        return this.emitter;
     }
 
     @Override

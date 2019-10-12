@@ -34,9 +34,7 @@ public class LeagueBusinessController {
     public void addTeam(String id, String name) {
         League league = this.findLeagueByIdAssured(id);
         Team team = this.teamDao.findByName(name);
-        league.getTable().add(team);
-        if (league.getTable().size() > 1)
-            league.initializeCalendar();
+        league.addTeam(team);
         this.leagueDao.save(league);
     }
 

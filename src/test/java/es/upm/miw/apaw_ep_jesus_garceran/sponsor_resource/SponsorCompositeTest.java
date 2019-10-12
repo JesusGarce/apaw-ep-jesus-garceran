@@ -14,7 +14,7 @@ public class SponsorCompositeTest {
     Sponsor sponsor3;
 
     @BeforeEach
-    public void initialize(){
+    public void initialize() {
         sponsor1 = new Sponsor("Adidas", 750000.00);
         sponsor2 = new Sponsor("Nike", 600000.00);
         sponsor3 = new Sponsor("Puma", 500000.00);
@@ -26,14 +26,14 @@ public class SponsorCompositeTest {
     }
 
     @Test
-    public void testSumEconomicInputIfComposite(){
+    public void testSumEconomicInputIfComposite() {
         assertEquals(1850000.0, sponsorComposite.sumEconomicInput());
         sponsorComposite.remove(sponsor3);
         assertEquals(1350000.0, sponsorComposite.sumEconomicInput());
     }
 
     @Test
-    public void testSumEconomicInputWithoutComposite(){
+    public void testSumEconomicInputWithoutComposite() {
         assertEquals(750000.00, sponsor1.sumEconomicInput());
     }
 

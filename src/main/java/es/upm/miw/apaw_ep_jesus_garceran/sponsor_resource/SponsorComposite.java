@@ -3,11 +3,11 @@ package es.upm.miw.apaw_ep_jesus_garceran.sponsor_resource;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SponsorComposite implements SponsorInterface{
+public class SponsorComposite implements SponsorInterface {
     private String name;
     private List<Sponsor> sponsorList;
 
-    SponsorComposite(String name){
+    SponsorComposite(String name) {
         this.name = name;
         this.sponsorList = new LinkedList<>();
     }

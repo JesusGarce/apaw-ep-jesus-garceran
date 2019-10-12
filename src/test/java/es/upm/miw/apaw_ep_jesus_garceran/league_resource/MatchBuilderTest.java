@@ -12,20 +12,20 @@ public class MatchBuilderTest {
 
 
     @Test
-    public void buildMatch(){
-        Match match = new Match.Builder().date(LocalDateTime.of(2019,10,10,12,55))
-                                         .local(new Team("Local","Madrid","b",0))
-                                         .away(new Team("Away", "Barcelona", "b", 0))
-                                         .finished(false)
-                                         .result(new Result(0,2))
-                                         .build();
+    public void buildMatch() {
+        Match match = new Match.Builder().date(LocalDateTime.of(2019, 10, 10, 12, 55))
+                .local(new Team("Local", "Madrid", "b", 0))
+                .away(new Team("Away", "Barcelona", "b", 0))
+                .finished(false)
+                .result(new Result(0, 2))
+                .build();
 
-        assertEquals(LocalDateTime.of(2019,10,10,12,55), match.getDate());
-        assertEquals(new Team("Local","Madrid","b",0).getName(), match.getLocal().getName());
+        assertEquals(LocalDateTime.of(2019, 10, 10, 12, 55), match.getDate());
+        assertEquals(new Team("Local", "Madrid", "b", 0).getName(), match.getLocal().getName());
         assertEquals(new Team("Away", "Barcelona", "b", 0).getName(), match.getAway().getName());
         assertFalse(match.isFinished());
-        assertEquals(new Result(0,2).getAwayScore(), match.getResult().getAwayScore());
-        assertEquals(new Result(0,2).getLocalScore(), match.getResult().getLocalScore());
+        assertEquals(new Result(0, 2).getAwayScore(), match.getResult().getAwayScore());
+        assertEquals(new Result(0, 2).getLocalScore(), match.getResult().getLocalScore());
 
     }
 

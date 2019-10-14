@@ -1,26 +1,38 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
-import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
+import es.upm.miw.apaw_ep_jesus_garceran.ApiTestConfig;
+import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import reactor.test.StepVerifier;
 
 import java.util.LinkedList;
 
+@ApiTestConfig
 public class LeaguePublisherTest {
 
+    LeagueBusinessController leagueBusinessController;
+    @Autowired
+    LeagueDao leagueDao;
+    @Autowired
+    TeamDao teamDao;
+
+    private String idLeague;
+
+    public void initialize() {
+        leagueBusinessController = new LeagueBusinessController(teamDao, leagueDao);
+        idLeague = leagueBusinessController.create(new LeagueDto(new League("Liga Española", new LinkedList<>()))).getId();
+    }
+
     @Test
-    void testPublisher() {
-        Team teamMadrid = new Team("Real Madrid CF", "Madrid", "escudo", 0);
-        Team teamBarcelona = new Team("FC Barcelona", "Barcelona", "escudo", 0);
-
-
-        League league = new League("Liga Española", new LinkedList<>());
+    public void testPublisher() {
+        initialize();
         StepVerifier
-                .create(league.publisher())
-                .then(() -> league.addTeam(teamMadrid))
-                .expectNext(teamMadrid)
-                .then(() -> league.addTeam(teamBarcelona))
-                .expectNext(teamBarcelona)
+                .create(leagueBusinessController.publisher(idLeague))
+                .then(() -> leagueBusinessController.addTeam(idLeague, "Real Madrid C.F."))
+                .expectNext("Real Madrid C.F.")
+                .then(() -> leagueBusinessController.addTeam(idLeague, "F.C. Barcelona"))
+                .expectNext("F.C. Barcelona")
                 .thenCancel()
                 .verify();
     }

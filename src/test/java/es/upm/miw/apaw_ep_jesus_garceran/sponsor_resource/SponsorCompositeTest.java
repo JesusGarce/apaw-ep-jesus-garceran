@@ -27,6 +27,7 @@ public class SponsorCompositeTest {
 
     @Test
     public void testSumEconomicInputIfComposite() {
+        assertEquals("Anuncios Temporada 19/20", sponsorComposite.getName());
         assertEquals(1850000.0, sponsorComposite.sumEconomicInput());
         sponsorComposite.remove(sponsor3);
         assertEquals(1350000.0, sponsorComposite.sumEconomicInput());

@@ -12,6 +12,14 @@ public class SponsorComposite implements SponsorInterface {
         this.sponsorList = new LinkedList<>();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<Sponsor> getSponsorList() {
+        return sponsorList;
+    }
+
     @Override
     public void add(Sponsor sponsor) {
         this.sponsorList.add(sponsor);
@@ -26,4 +34,6 @@ public class SponsorComposite implements SponsorInterface {
     public double sumEconomicInput() {
         return this.sponsorList.stream().mapToDouble(Sponsor::sumEconomicInput).sum();
     }
+
+
 }

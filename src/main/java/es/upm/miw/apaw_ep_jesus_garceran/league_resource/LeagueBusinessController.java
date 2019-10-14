@@ -6,6 +6,8 @@ import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.EmitterProcessor;
+import reactor.core.publisher.Flux;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -17,11 +19,15 @@ public class LeagueBusinessController {
 
     private LeagueDao leagueDao;
     private TeamDao teamDao;
+    private EmitterProcessor<String> emitter;
+    private List<String> idLeaguesToPublish;
 
     @Autowired
     public LeagueBusinessController(TeamDao teamDao, LeagueDao leagueDao) {
         this.teamDao = teamDao;
         this.leagueDao = leagueDao;
+        this.emitter = EmitterProcessor.create();
+        this.idLeaguesToPublish = new LinkedList<>();
     }
 
     public LeagueDto create(LeagueDto leagueDto) {
@@ -35,6 +41,8 @@ public class LeagueBusinessController {
         League league = this.findLeagueByIdAssured(id);
         Team team = this.teamDao.findByName(name);
         league.addTeam(team);
+        if (idLeaguesToPublish.contains(id))
+            emitter.onNext(team.getName());
         this.leagueDao.save(league);
     }
 
@@ -87,4 +95,10 @@ public class LeagueBusinessController {
                 .map(TeamDto::new)
                 .collect(Collectors.toList());
     }
+
+    public Flux<String> publisher(String leagueId) {
+        this.idLeaguesToPublish.add(leagueId);
+        return this.emitter;
+    }
+
 }

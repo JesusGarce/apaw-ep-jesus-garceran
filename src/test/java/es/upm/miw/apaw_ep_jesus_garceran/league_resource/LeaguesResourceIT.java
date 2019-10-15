@@ -2,14 +2,16 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.ApiTestConfig;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.TeamDto;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamCreationDto;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
 import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamResource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,8 +21,6 @@ class LeaguesResourceIT {
 
     @Autowired
     private WebTestClient webTestClient;
-    @Autowired
-    private LeagueDao leagueDao;
     private LeagueDto leagueDto;
     private TeamDto localTeam;
     private TeamDto awayTeam;
@@ -29,7 +29,7 @@ class LeaguesResourceIT {
     void testCreate() {
         leagueDto = this.webTestClient
                 .post().uri(LeagueResource.LEAGUES)
-                .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
+                .body(BodyInserters.fromObject(new LeagueDto(null, "Liga Española")))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(LeagueDto.class).returnResult().getResponseBody();
@@ -40,10 +40,10 @@ class LeaguesResourceIT {
 
     @Test
     void testCreateException() {
-        LeagueCreationDto leagueCreationDto = new LeagueCreationDto("");
+        LeagueDto leagueDto = new LeagueDto(null, "");
         this.webTestClient
                 .post().uri(LeagueResource.LEAGUES)
-                .body(BodyInserters.fromObject(leagueCreationDto))
+                .body(BodyInserters.fromObject(leagueDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -51,7 +51,7 @@ class LeaguesResourceIT {
     private void createLeague() {
         leagueDto = this.webTestClient
                 .post().uri(LeagueResource.LEAGUES)
-                .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
+                .body(BodyInserters.fromObject(new LeagueDto(null, "Liga Española")))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(LeagueDto.class).returnResult().getResponseBody();
@@ -63,7 +63,7 @@ class LeaguesResourceIT {
         TeamDto teamDto = new TeamDto(new Team("F.C. Barcelona", "Barcelona", "https://www.stickpng.com/assets/images/584a9b3bb080d7616d298777.png", 0));
 
         this.webTestClient
-                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, leagueDto.getId())
                 .body(BodyInserters.fromObject(teamDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK);
@@ -76,7 +76,7 @@ class LeaguesResourceIT {
         TeamDto teamDto = new TeamDto(new Team("", "Ciudad anónima", "Escudo", 0));
 
         this.webTestClient
-                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, leagueDto.getId())
                 .body(BodyInserters.fromObject(teamDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
@@ -88,7 +88,7 @@ class LeaguesResourceIT {
         TeamDto teamDto = new TeamDto(new Team("Equipo anónimo", "Ciudad anónima", "Escudo", 0));
 
         this.webTestClient
-                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, "malaId")
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, "malaId")
                 .body(BodyInserters.fromObject(teamDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
@@ -98,7 +98,7 @@ class LeaguesResourceIT {
 
         leagueDto = this.webTestClient
                 .post().uri(LeagueResource.LEAGUES)
-                .body(BodyInserters.fromObject(new LeagueCreationDto("Liga Española")))
+                .body(BodyInserters.fromObject(new LeagueDto(null, "Liga Española")))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(LeagueDto.class).returnResult().getResponseBody();
@@ -118,13 +118,13 @@ class LeaguesResourceIT {
                 .expectBody(TeamDto.class).returnResult().getResponseBody();
 
         this.webTestClient
-                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, leagueDto.getId())
                 .body(BodyInserters.fromObject(localTeam))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK);
 
         this.webTestClient
-                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
+                .put().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, leagueDto.getId())
                 .body(BodyInserters.fromObject(awayTeam))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK);
@@ -155,23 +155,27 @@ class LeaguesResourceIT {
     void getMatches() {
         createLeagueAndAddTwoTeams("Real Algo", "Atletico algo");
 
-        this.webTestClient
-                .get().uri(uriBuilder ->
-                uriBuilder.path(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.MATCHES + LeagueResource.SEARCH)
-                        .queryParam("q", "date:=10/10/2019 21:00")
-                        .build(leagueDto.getId()))
-                .exchange()
-                .expectStatus().isEqualTo(HttpStatus.OK)
-                .expectBodyList(MatchDto.class).returnResult().getResponseBody();
+        List<MatchDto> matchDtoList =
+                this.webTestClient
+                        .get().uri(uriBuilder ->
+                        uriBuilder.path(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.MATCHES + LeagueResource.SEARCH)
+                                .queryParam("q", "date:=09/10/2019 21:00")
+                                .build(leagueDto.getId()))
+                        .exchange()
+                        .expectStatus().isEqualTo(HttpStatus.OK)
+                        .expectBodyList(MatchDto.class).returnResult().getResponseBody();
+
+        assertEquals(1, matchDtoList.size());
     }
 
     @Test
     void getMatchesWithBadDate() {
         createLeagueAndAddTwoTeams("Equipo 3", "Atletico 3");
+
         this.webTestClient
                 .get().uri(uriBuilder ->
                 uriBuilder.path(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.MATCHES + LeagueResource.SEARCH)
-                        .queryParam("q", "date=10/10/2019 21:00")
+                        .queryParam("q", "date=09/10/2019 21:00")
                         .build(leagueDto.getId()))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
@@ -180,11 +184,15 @@ class LeaguesResourceIT {
     @Test
     void getTable() {
         createLeagueAndAddTwoTeams("ElPozo Murcia", "Inter Movistar");
-        this.webTestClient
-                .get().uri(LeagueResource.LEAGUES + LeagueResource.ID_ID + LeagueResource.TABLE, leagueDto.getId())
-                .exchange()
-                .expectStatus().isEqualTo(HttpStatus.OK)
-                .expectBodyList(TeamDto.class).returnResult().getResponseBody();
+
+        List<TeamDto> teamDtoList =
+                this.webTestClient
+                        .get().uri(LeagueResource.LEAGUES + LeagueResource.ID_IDLEAGUE + LeagueResource.TABLE, leagueDto.getId())
+                        .exchange()
+                        .expectStatus().isEqualTo(HttpStatus.OK)
+                        .expectBodyList(TeamDto.class).returnResult().getResponseBody();
+
+        assertEquals(2, teamDtoList.size());
     }
 
 }

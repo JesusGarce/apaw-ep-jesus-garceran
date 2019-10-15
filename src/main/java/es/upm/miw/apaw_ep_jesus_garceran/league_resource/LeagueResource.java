@@ -1,7 +1,7 @@
 package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.BadRequestException;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,6 @@ public class LeagueResource {
 
     static final String LEAGUES = "/leagues";
     static final String TABLE = "/table";
-    static final String ID_ID = "/{id}";
     static final String MATCHES = "/matches";
     static final String ID_IDLEAGUE = "/{idLeague}";
     static final String ID_IDMATCH = "/{idMatch}";
@@ -34,10 +33,10 @@ public class LeagueResource {
         return this.leagueBusinessController.create(leagueDto);
     }
 
-    @PutMapping(value = ID_ID + TABLE, consumes = "application/json")
-    public void addTeam(@PathVariable String id, @RequestBody TeamDto teamDto) {
+    @PutMapping(value = ID_IDLEAGUE + TABLE, consumes = "application/json")
+    public void addTeam(@PathVariable String idLeague, @RequestBody TeamDto teamDto) {
         teamDto.validate();
-        this.leagueBusinessController.addTeam(id, teamDto.getName());
+        this.leagueBusinessController.addTeam(idLeague, teamDto.getName());
     }
 
     @PatchMapping(value = ID_IDLEAGUE + MATCHES + ID_IDMATCH, consumes = "application/json")
@@ -55,9 +54,9 @@ public class LeagueResource {
         return this.leagueBusinessController.findMatchesByDate(idLeague, localDateTime);
     }
 
-    @GetMapping(value = ID_ID + TABLE)
-    public List<TeamDto> getTable(@PathVariable String id) {
-        return this.leagueBusinessController.getTable(id);
+    @GetMapping(value = ID_IDLEAGUE + TABLE)
+    public List<TeamDto> getTable(@PathVariable String idLeague) {
+        return this.leagueBusinessController.getTable(idLeague);
     }
 
 }

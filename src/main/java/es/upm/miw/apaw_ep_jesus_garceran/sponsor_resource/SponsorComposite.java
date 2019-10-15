@@ -16,10 +16,6 @@ public class SponsorComposite implements SponsorInterface {
         return name;
     }
 
-    public List<Sponsor> getSponsorList() {
-        return sponsorList;
-    }
-
     @Override
     public void add(Sponsor sponsor) {
         this.sponsorList.add(sponsor);

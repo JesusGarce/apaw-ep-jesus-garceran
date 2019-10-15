@@ -2,8 +2,8 @@ package es.upm.miw.apaw_ep_jesus_garceran.league_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_jesus_garceran.team_data.Team;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDao;
-import es.upm.miw.apaw_ep_jesus_garceran.team_resource.TeamDto;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.TeamDao;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.TeamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import reactor.core.publisher.EmitterProcessor;
@@ -53,7 +53,7 @@ public class LeagueBusinessController {
     public void changeResult(String idLeague, int idMatch, ResultDto resultDto) {
         League league = this.findLeagueByIdAssured(idLeague);
         Match match = league.getCalendar().remove(idMatch);
-        match.setResult(new Result(resultDto.getLocalScore(), resultDto.getAwayScore()));
+        match.addResult(new Result(resultDto.getLocalScore(), resultDto.getAwayScore()));
         finishMatch(league, match);
         league.getCalendar().add(idMatch, match);
         this.leagueDao.save(league);

@@ -10,6 +10,13 @@ import java.util.List;
 
 @Document
 public class League {
+
+    private static final int LEAGUE_YEAR = 2019;
+    private static final int LEAGUE_MONTH = 10;
+    private static final int MATCH_DAY = 10;
+    private static final int MATCH_HOUR = 21;
+    private static final int MATCH_MINUTE = 0;
+
     @Id
     private String id;
     private String name;
@@ -24,16 +31,13 @@ public class League {
     public void initializeCalendar() {
         this.calendar = new LinkedList<>();
         for (Team teamLocal : table) {
-            int day = 10;
-            for (Team teamAway : table) {
-                if (!teamLocal.equals(teamAway)) {
-                    this.calendar.add(new Match.Builder().date(LocalDateTime.of(2019, 10, day++, 21, 0))
+            table.stream()
+                    .filter(teamAway -> !teamLocal.equals(teamAway))
+                    .forEach(teamAway -> this.calendar.add(new Match.Builder().date(LocalDateTime.of(LEAGUE_YEAR, LEAGUE_MONTH, MATCH_DAY + (table.indexOf(teamAway) - table.indexOf(teamLocal)), MATCH_HOUR, MATCH_MINUTE))
                             .local(teamLocal)
                             .away(teamAway)
                             .finished(false)
-                            .build());
-                }
-            }
+                            .build()));
         }
     }
 

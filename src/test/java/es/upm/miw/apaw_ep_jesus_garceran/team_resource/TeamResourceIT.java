@@ -1,11 +1,14 @@
 package es.upm.miw.apaw_ep_jesus_garceran.team_resource;
 
 import es.upm.miw.apaw_ep_jesus_garceran.ApiTestConfig;
+import es.upm.miw.apaw_ep_jesus_garceran.team_data.TeamDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,11 +65,14 @@ class TeamResourceIT {
 
     @Test
     void testGetAllTeams() {
-        this.webTestClient
-                .get().uri(TeamResource.TEAMS)
-                .exchange()
-                .expectStatus().isEqualTo(HttpStatus.OK)
-                .expectBodyList(TeamDto.class).returnResult().getResponseBody();
+        List<TeamDto> teamDtoList =
+                this.webTestClient
+                        .get().uri(TeamResource.TEAMS)
+                        .exchange()
+                        .expectStatus().isEqualTo(HttpStatus.OK)
+                        .expectBodyList(TeamDto.class).returnResult().getResponseBody();
+
+        assertNotNull(teamDtoList);
     }
 
 }

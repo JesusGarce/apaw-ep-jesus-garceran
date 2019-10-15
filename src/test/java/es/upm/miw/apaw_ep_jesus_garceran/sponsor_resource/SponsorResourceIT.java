@@ -18,6 +18,8 @@ class SponsorResourceIT {
     private Sponsor sponsor;
 
     private void createSponsor() {
+
+
         sponsor = sponsorDao.save(new Sponsor("Nuevo patrocinador", 123.00));
     }
 

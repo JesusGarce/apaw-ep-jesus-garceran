@@ -14,18 +14,11 @@ public class Match {
     public Match() {
     }
 
-    public Match(LocalDateTime date, Team local, Team away, boolean finished) {
-        this.date = date;
-        this.local = local;
-        this.away = away;
-        this.finished = finished;
-    }
-
     public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    private void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -33,7 +26,7 @@ public class Match {
         return local;
     }
 
-    public void setLocal(Team local) {
+    private void setLocal(Team local) {
         this.local = local;
     }
 
@@ -41,7 +34,7 @@ public class Match {
         return away;
     }
 
-    public void setAway(Team away) {
+    private void setAway(Team away) {
         this.away = away;
     }
 
@@ -49,7 +42,7 @@ public class Match {
         return result;
     }
 
-    public void setResult(Result result) {
+    private void setResult(Result result) {
         this.result = result;
     }
 
@@ -57,11 +50,15 @@ public class Match {
         return finished;
     }
 
-    public void setFinished(boolean finished) {
+    private void setFinished(boolean finished) {
         this.finished = finished;
     }
 
-    public void finishMatch() {
+    void addResult(Result result) {
+        this.result = result;
+    }
+
+    void finishMatch() {
         this.finished = true;
     }
 

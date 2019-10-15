@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SponsorCompositeTest {
 
 
-    SponsorComposite sponsorComposite;
-    Sponsor sponsor1;
-    Sponsor sponsor2;
-    Sponsor sponsor3;
+    private SponsorComposite sponsorComposite;
+    private Sponsor sponsor1;
+    private Sponsor sponsor2;
+    private Sponsor sponsor3;
 
     @BeforeEach
     public void initialize() {

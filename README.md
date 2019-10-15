@@ -5,7 +5,7 @@
 ### Estado del código
 [![Build Status](https://travis-ci.org/JesusGarce/apaw-ep-jesus-garceran.svg?branch=develop)](https://travis-ci.org/miw-upm/apaw-ep-themes)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JesusGarce_apaw-ep-jesus-garceran&metric=alert_status)](https://sonarcloud.io/dashboard?id=JesusGarce_apaw-ep-jesus-garceran)
-[![BCH compliance](https://bettercodehub.com/edge/badge/JesusGarce/apaw-ep-jesus-garceran?branch=master)](https://bettercodehub.com/)
+[![BCH compliance](https://bettercodehub.com/edge/badge/JesusGarce/apaw-ep-jesus-garceran?branch=develop)](https://bettercodehub.com/)
 [![Heroku broken](https://apaw-ep-jesus-garceran.herokuapp.com/system/version-badge)](https://apaw-ep-jesus-garceran.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias

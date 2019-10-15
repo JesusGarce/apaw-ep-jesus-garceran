@@ -12,46 +12,27 @@ public class Match {
     private boolean finished;
 
     public Match() {
+        // empty for framework
     }
 
     public LocalDateTime getDate() {
         return date;
     }
 
-    private void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
     public Team getLocal() {
         return local;
-    }
-
-    private void setLocal(Team local) {
-        this.local = local;
     }
 
     public Team getAway() {
         return away;
     }
 
-    private void setAway(Team away) {
-        this.away = away;
-    }
-
     public Result getResult() {
         return result;
     }
 
-    private void setResult(Result result) {
-        this.result = result;
-    }
-
     public boolean isFinished() {
         return finished;
-    }
-
-    private void setFinished(boolean finished) {
-        this.finished = finished;
     }
 
     void addResult(Result result) {
@@ -82,27 +63,27 @@ public class Match {
         }
 
         public Builder date(LocalDateTime date) {
-            match.setDate(date);
+            match.date = date;
             return this;
         }
 
         public Builder local(Team local) {
-            match.setLocal(local);
+            match.local = local;
             return this;
         }
 
         public Builder away(Team away) {
-            match.setAway(away);
+            match.away = away;
             return this;
         }
 
         public Builder result(Result result) {
-            match.setResult(result);
+            match.result = result;
             return this;
         }
 
         public Builder finished(boolean finished) {
-            match.setFinished(finished);
+            match.finished = finished;
             return this;
         }
 
